@@ -5,7 +5,8 @@ from .models import (
     Genre,
     AgeValue,
     AgeRestriction,
-    Status
+    Status,
+    Type
 )
 
 
@@ -24,6 +25,12 @@ class AgeRestrictionAdmin(admin.ModelAdmin):
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     """Anime status admin"""
+    list_display = ('title', )
+
+
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+    """Anime type admin"""
     list_display = ('title', )
 
 

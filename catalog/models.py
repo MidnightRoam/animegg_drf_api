@@ -12,6 +12,7 @@ class Anime(models.Model):
     slug = models.SlugField(editable=False, default='')
     age_restrictions = models.ForeignKey('AgeRestriction', on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey('Status', on_delete=models.CASCADE, null=True, blank=True)
+    type = models.ForeignKey('Type', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
@@ -73,3 +74,18 @@ class Status(models.Model):
     class Meta:
         verbose_name = "Status"
         verbose_name_plural = "Statuses"
+
+
+class Type(models.Model):
+    """Anime type model"""
+    class TypeValue(models.TextChoices):
+        """Type values"""
+        tv_series = 'TV Series', _('TV Series')
+        movie = 'Movie'
+        ova = 'OVA', _('OVA')
+        special = 'Special'
+    title = models.CharField(choices=TypeValue.choices, default=TypeValue.choices[0], max_length=10, unique=True)
+
+    def __str__(self):
+        return self.title
+
