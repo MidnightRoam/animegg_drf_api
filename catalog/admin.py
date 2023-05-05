@@ -4,18 +4,27 @@ from .models import (
     Anime,
     Genre,
     AgeValue,
-    AgeRestriction
+    AgeRestriction,
+    Status
 )
 
 
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
+    """Anime object admin"""
     list_display = ('title', 'release_date', 'slug',)
 
 
 @admin.register(AgeRestriction)
 class AgeRestrictionAdmin(admin.ModelAdmin):
+    """Age restrictions admin"""
     list_display = ('age', 'abbreviation', 'title',)
+
+
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    """Anime status admin"""
+    list_display = ('title', )
 
 
 admin.site.register(Genre)

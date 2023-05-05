@@ -7,7 +7,7 @@ class AnimeSerializer(ModelSerializer):
     """Anime object serializer"""
     class Meta:
         model = Anime
-        fields = ('id', 'title', 'subtitle', 'description', 'release_date', 'genres', 'slug')
+        fields = ('id', 'title', 'subtitle', 'description', 'release_date', 'genres', 'slug', 'age_restrictions')
 
 
 class GenreSerializer(ModelSerializer):
