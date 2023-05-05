@@ -20,10 +20,11 @@ class AnimeSerializer(ModelSerializer):
             'description',
             'release_date',
             'genres',
+            'origin',
             'slug',
             'age_restrictions',
             'type',
-            'status'
+            'status',
         )
 
 

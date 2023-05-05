@@ -1,3 +1,5 @@
+from enum import unique
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -13,6 +15,7 @@ class Anime(models.Model):
     age_restrictions = models.ForeignKey('AgeRestriction', on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey('Status', on_delete=models.CASCADE, null=True, blank=True)
     type = models.ForeignKey('Type', on_delete=models.CASCADE, null=True)
+    origin = models.ForeignKey('Origin', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
@@ -85,6 +88,14 @@ class Type(models.Model):
         ova = 'OVA', _('OVA')
         special = 'Special'
     title = models.CharField(choices=TypeValue.choices, default=TypeValue.choices[0], max_length=10, unique=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Origin(models.Model):
+    """Anime origin value model"""
+    title = models.CharField(max_length=124, unique=True, default='')
 
     def __str__(self):
         return self.title
