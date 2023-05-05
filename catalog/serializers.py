@@ -18,6 +18,8 @@ class AnimeSerializer(ModelSerializer):
             'title',
             'subtitle',
             'description',
+            'poster',
+            'main_characters',
             'release_date',
             'genres',
             'origin',

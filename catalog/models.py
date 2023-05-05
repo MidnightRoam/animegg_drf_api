@@ -1,7 +1,7 @@
-from enum import unique
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from characters.models import Character
 
 
 class Anime(models.Model):
@@ -9,8 +9,10 @@ class Anime(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
+    poster = models.ImageField(upload_to='anime_posters/', blank=True)
     genres = models.ManyToManyField('Genre', blank=True)
     release_date = models.DateField(blank=True, null=True)
+    main_characters = models.ManyToManyField(Character, blank=True)
     slug = models.SlugField(editable=False, default='')
     age_restrictions = models.ForeignKey('AgeRestriction', on_delete=models.CASCADE, blank=True, null=True)
     status = models.ForeignKey('Status', on_delete=models.CASCADE, null=True, blank=True)
@@ -21,7 +23,8 @@ class Anime(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        invalid_url_chars = ['<', '>', '"', "'", '{', '}', '|', '\\', '^', '`', '[', ']', '\t', '\n', '\r', '%',
+        invalid_url_chars = ['<', '>', '"', "'", '{', '}', '|', '\\',
+                             '^', '`', '[', ']', '\t', '\n', '\r', '%',
                              '#', '&', '+', ',', '/', ':', ';', '=', '?', '@']
         result = ''
         if not self.slug:
