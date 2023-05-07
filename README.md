@@ -1,1 +1,2 @@
-# animegg_drf_api
+
+# DRF API for anime portal project with video player
