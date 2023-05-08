@@ -15,7 +15,8 @@ class Manga(models.Model):
     finished = models.DateField(blank=True, null=True)
     type = models.ForeignKey('Type', on_delete=models.CASCADE)
     slug = models.SlugField(editable=False, default='')
-    characters = models.ManyToManyField(Character, blank=True)
+    genres = models.ManyToManyField('Genre', blank=True, related_name='genres')
+    characters = models.ManyToManyField(Character, blank=True, related_name='characters')
 
     def __str__(self):
         return self.title

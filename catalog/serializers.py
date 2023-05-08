@@ -1,3 +1,4 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from .models import (
@@ -10,10 +11,16 @@ from .models import (
     MPAARating,
     Origin
 )
+from characters.serializers import CharacterSerializer
 
 
 class AnimeSerializer(ModelSerializer):
     """Anime object serializer"""
+    main_characters = serializers.SerializerMethodField()
+    genres = serializers.SerializerMethodField()
+    # origin = serializers.SerializerMethodField()
+    age_restrictions = serializers.SerializerMethodField()
+
     class Meta:
         model = Anime
         fields = (
@@ -31,6 +38,30 @@ class AnimeSerializer(ModelSerializer):
             'type',
             'status',
         )
+
+    def get_main_characters(self, obj):
+        """ORM query optimization for main characters field"""
+        main_characters = obj.main_characters.all()
+        serializer = CharacterSerializer(main_characters, many=True)
+        return serializer.data
+
+    def get_genres(self, obj):
+        """ORM query optimization for genres field"""
+        genres = obj.genres.all()
+        serializer = GenreSerializer(genres, many=True)
+        return serializer.data
+
+    # def get_origin(self, obj):
+    #     """ORM query optimization for origin field"""
+    #     origin = obj.origin
+    #     serializer = OriginSerializer(origin, many=False)
+    #     return serializer.data
+
+    def get_age_restrictions(self, obj):
+        """ORM query optimization for age restrictions field"""
+        age_restrictions = obj.age_restrictions
+        serializer = AgeRestrictionSerializer(age_restrictions, many=False)
+        return serializer.data
 
 
 class GenreSerializer(ModelSerializer):
