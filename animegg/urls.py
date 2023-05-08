@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/v1/', include('catalog.urls')),
     path('api/v1/characters/', include('characters.urls')),
     path('api/v1/manga/', include('manga.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
