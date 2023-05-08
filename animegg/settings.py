@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     'catalog.apps.CatalogConfig',
     'characters.apps.CharactersConfig',
+    'manga.apps.MangaConfig',
 ]
 
 MIDDLEWARE = [

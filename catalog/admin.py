@@ -5,6 +5,7 @@ from .models import (
     Genre,
     AgeValue,
     AgeRestriction,
+    MPAARating,
     Status,
     Type,
     Origin,
@@ -17,29 +18,40 @@ class AnimeAdmin(admin.ModelAdmin):
     list_display = ('title', 'release_date', 'slug',)
 
 
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    """Genre admin"""
+    list_display = ('title', 'slug', 'id')
+
+
 @admin.register(AgeRestriction)
 class AgeRestrictionAdmin(admin.ModelAdmin):
     """Age restrictions admin"""
     list_display = ('age', 'abbreviation', 'title',)
 
 
+@admin.register(MPAARating)
+class MPAARatingAdmin(admin.ModelAdmin):
+    """MPAARating admin"""
+    list_display = ('title', 'abbreviation', )
+
+
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     """Anime status admin"""
-    list_display = ('title', )
+    list_display = ('title', 'slug', 'id',)
 
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
     """Anime type admin"""
-    list_display = ('title', )
+    list_display = ('title', 'slug')
 
 
 @admin.register(Origin)
 class OriginAdmin(admin.ModelAdmin):
     """Anime origin admin"""
-    list_display = ('title', )
+    list_display = ('title', 'slug', 'id')
 
 
-admin.site.register(Genre)
 admin.site.register(AgeValue)

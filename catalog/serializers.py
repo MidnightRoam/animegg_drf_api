@@ -5,7 +5,10 @@ from .models import (
     Genre,
     AgeRestriction,
     Type,
-    Status, AgeValue
+    Status,
+    AgeValue,
+    MPAARating,
+    Origin
 )
 
 
@@ -34,7 +37,7 @@ class GenreSerializer(ModelSerializer):
     """Genre of anime serializer"""
     class Meta:
         model = Genre
-        fields = ('id', 'title', 'description')
+        fields = ('id', 'title', 'description', 'slug',)
 
 
 class AgeValueSerializer(ModelSerializer):
@@ -51,15 +54,29 @@ class AgeRestrictionSerializer(ModelSerializer):
         fields = ('id', 'age', 'description', 'abbreviation', 'title')
 
 
+class MPAARatingSerializer(ModelSerializer):
+    """MPAARating serializer"""
+    class Meta:
+        model = MPAARating
+        fields = ('id', 'title', 'abbreviation', 'description')
+
+
 class TypeSerializer(ModelSerializer):
     """Type of anime serializer"""
     class Meta:
         model = Type
-        fields = ('id', 'title', )
+        fields = ('id', 'title', 'slug',)
 
 
 class StatusSerializer(ModelSerializer):
     """Status of anime serializer"""
     class Meta:
         model = Status
-        fields = ('id', 'title', )
+        fields = ('id', 'title', 'slug',)
+
+
+class OriginSerializer(ModelSerializer):
+    """Origin of anime serializer"""
+    class Meta:
+        model = Origin
+        fields = ('id', 'title', 'slug', )

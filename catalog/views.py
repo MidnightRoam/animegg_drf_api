@@ -11,7 +11,8 @@ from .serializers import (
     AgeRestrictionSerializer,
     TypeSerializer,
     StatusSerializer,
-
+    MPAARatingSerializer,
+    OriginSerializer
 )
 from .models import (
     Anime,
@@ -20,42 +21,56 @@ from .models import (
     AgeRestriction,
     Type,
     Status,
+    MPAARating,
+    Origin
 )
 
 
 class AnimeViewSet(ModelViewSet):
-    """Anime objects viewset"""
+    """Anime objects view set"""
     queryset = Anime.objects.all()
     serializer_class = AnimeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class GenreViewSet(ModelViewSet):
-    """Genre of anime viewset"""
+    """Genre of anime view set"""
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
 
 class AgeValueViewSet(ModelViewSet):
-    """Age value for age restriction viewset"""
+    """Age value for age restriction view set"""
     queryset = AgeValue.objects.all()
     serializer_class = AgeValueSerializer
 
 
 class AgeRestrictionViewSet(ModelViewSet):
-    """Age restriction viewset"""
+    """Age restriction view set"""
     queryset = AgeRestriction.objects.all()
     serializer_class = AgeRestrictionSerializer
 
 
+class MPAARatingModelViewSet(ModelViewSet):
+    """MPAARating model view set"""
+    queryset = MPAARating.objects.all()
+    serializer_class = MPAARatingSerializer
+
+
 class TypeViewSet(ModelViewSet):
-    """Type of anime viewset"""
+    """Type of anime view set"""
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
 
 
 class StatusViewSet(ModelViewSet):
-    """Status of anime viewset"""
+    """Status of anime view set"""
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
+
+
+class OriginModelViewSet(ModelViewSet):
+    """Origin of anime model view set"""
+    queryset = Origin.objects.all()
+    serializer_class = OriginSerializer
 
