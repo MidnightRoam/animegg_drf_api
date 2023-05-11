@@ -132,3 +132,8 @@ class Origin(models.Model):
             self.slug = slug_generator(self.title)
         super().save(*args, **kwargs)
 
+
+class Screenshot(models.Model):
+    """Anime screenshot model"""
+    anime = models.ForeignKey('Anime', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='anime_screenshots/')

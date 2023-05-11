@@ -9,13 +9,22 @@ from .models import (
     Status,
     Type,
     Origin,
+    Screenshot
 )
+
+
+class ScreenshotInLine(admin.TabularInline):
+    """Anime screenshot inline"""
+    model = Screenshot
 
 
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
     """Anime object admin"""
     list_display = ('title', 'release_date', 'slug',)
+    inlines = [
+        ScreenshotInLine,
+    ]
 
 
 @admin.register(Genre)
@@ -52,6 +61,12 @@ class TypeAdmin(admin.ModelAdmin):
 class OriginAdmin(admin.ModelAdmin):
     """Anime origin admin"""
     list_display = ('title', 'slug', 'id')
+
+
+@admin.register(Screenshot)
+class ScreenshotAdmin(admin.ModelAdmin):
+    """Anime screenshot admin"""
+    list_display = ('anime', 'image', 'id')
 
 
 admin.site.register(AgeValue)

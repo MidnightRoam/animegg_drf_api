@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from rest_framework import generics, status
-from rest_framework.response import Response
+import random
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 
 from .serializers import (
     AnimeSerializer,
@@ -28,9 +30,15 @@ from .models import (
 
 class AnimeViewSet(ModelViewSet):
     """Anime objects view set"""
-    queryset = Anime.objects.all()
+    queryset = Anime.objects.all().prefetch_related('screenshot_set')
     serializer_class = AnimeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
+
+    def get_random_anime(self, request):
+        """Return random anime object"""
+        random_anime = random.choice(self.queryset)
+        serializer = AnimeSerializer(random_anime)
+        return Response(serializer.data)
 
 
 class GenreViewSet(ModelViewSet):
@@ -73,4 +81,3 @@ class OriginModelViewSet(ModelViewSet):
     """Origin of anime model view set"""
     queryset = Origin.objects.all()
     serializer_class = OriginSerializer
-

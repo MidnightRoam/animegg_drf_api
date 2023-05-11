@@ -9,17 +9,25 @@ from .models import (
     Status,
     AgeValue,
     MPAARating,
-    Origin
+    Origin,
+    Screenshot
 )
 from characters.serializers import CharacterSerializer
+
+
+class ScreenshotSerializer(ModelSerializer):
+    """Anime screenshot serializer"""
+    class Meta:
+        model = Screenshot
+        fields = ('id', 'anime', 'image')
 
 
 class AnimeSerializer(ModelSerializer):
     """Anime object serializer"""
     main_characters = serializers.SerializerMethodField()
     genres = serializers.SerializerMethodField()
-    # origin = serializers.SerializerMethodField()
     age_restrictions = serializers.SerializerMethodField()
+    screenshot_set = ScreenshotSerializer(many=True)
 
     class Meta:
         model = Anime
@@ -37,6 +45,7 @@ class AnimeSerializer(ModelSerializer):
             'age_restrictions',
             'type',
             'status',
+            'screenshot_set'
         )
 
     def get_main_characters(self, obj):
@@ -51,16 +60,15 @@ class AnimeSerializer(ModelSerializer):
         serializer = GenreSerializer(genres, many=True)
         return serializer.data
 
-    # def get_origin(self, obj):
-    #     """ORM query optimization for origin field"""
-    #     origin = obj.origin
-    #     serializer = OriginSerializer(origin, many=False)
-    #     return serializer.data
-
     def get_age_restrictions(self, obj):
         """ORM query optimization for age restrictions field"""
         age_restrictions = obj.age_restrictions
         serializer = AgeRestrictionSerializer(age_restrictions, many=False)
+        return serializer.data
+
+    def get_screenshot_set(self, obj):
+        screenshot_set = obj.screenshots
+        serializer = ScreenshotSerializer(screenshot_set, many=True)
         return serializer.data
 
 
