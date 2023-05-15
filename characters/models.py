@@ -1,6 +1,7 @@
 from django.db import models
 
 from catalog.model_helpers import slug_generator
+# from catalog.models import Anime
 
 
 class Character(models.Model):
@@ -10,6 +11,7 @@ class Character(models.Model):
     slug = models.SlugField(editable=False, default='')
     image = models.ImageField(upload_to='characters_images/', blank=True)
     description = models.TextField(blank=True)
+    anime = models.ManyToManyField('catalog.Anime', blank=True, related_name='anime')
 
     def __str__(self):
         return self.name

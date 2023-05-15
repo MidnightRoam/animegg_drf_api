@@ -51,7 +51,7 @@ class AnimeSerializer(ModelSerializer):
     def get_main_characters(self, obj):
         """ORM query optimization for main characters field"""
         main_characters = obj.main_characters.all()
-        serializer = CharacterSerializer(main_characters, many=True)
+        serializer = CharacterRelatedSerializer(main_characters, many=True)
         return serializer.data
 
     def get_genres(self, obj):
@@ -67,6 +67,7 @@ class AnimeSerializer(ModelSerializer):
         return serializer.data
 
     def get_screenshot_set(self, obj):
+        """ORM query optimization for anime screenshots"""
         screenshot_set = obj.screenshots
         serializer = ScreenshotSerializer(screenshot_set, many=True)
         return serializer.data

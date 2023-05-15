@@ -13,7 +13,7 @@ class Anime(models.Model):
     poster = models.ImageField(upload_to='anime_posters/', blank=True)
     genres = models.ManyToManyField('Genre', blank=True)
     release_date = models.DateField(blank=True, null=True)
-    main_characters = models.ManyToManyField(Character, blank=True)
+    main_characters = models.ManyToManyField(Character, blank=True, related_name='anime_characters')
     slug = models.SlugField(editable=False, default='')
     mpaa_rating = models.ForeignKey('MPAARating', on_delete=models.CASCADE, blank=True, null=True)
     age_restrictions = models.ForeignKey('AgeRestriction', on_delete=models.CASCADE, blank=True, null=True)
