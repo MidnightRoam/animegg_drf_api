@@ -27,7 +27,7 @@ class AnimeSerializer(ModelSerializer):
     main_characters = serializers.SerializerMethodField()
     genres = serializers.SerializerMethodField()
     age_restrictions = serializers.SerializerMethodField()
-    screenshot_set = ScreenshotSerializer(many=True)
+    screenshot_set = ScreenshotSerializer(many=True, required=False)
 
     class Meta:
         model = Anime
@@ -45,13 +45,13 @@ class AnimeSerializer(ModelSerializer):
             'age_restrictions',
             'type',
             'status',
-            'screenshot_set'
+            'screenshot_set',
         )
 
     def get_main_characters(self, obj):
         """ORM query optimization for main characters field"""
         main_characters = obj.main_characters.all()
-        serializer = CharacterRelatedSerializer(main_characters, many=True)
+        serializer = CharacterSerializer(main_characters, many=True)
         return serializer.data
 
     def get_genres(self, obj):
