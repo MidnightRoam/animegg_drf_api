@@ -9,7 +9,8 @@ from .models import (
     Status,
     Type,
     Origin,
-    Screenshot
+    Screenshot,
+    AnimeBookmarkList
 )
 
 
@@ -70,3 +71,4 @@ class ScreenshotAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AgeValue)
+admin.site.register(AnimeBookmarkList)

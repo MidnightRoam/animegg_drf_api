@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from characters.models import Character
 from .model_helpers import slug_generator
+from accounts.models import CustomUser
 
 
 class Anime(models.Model):
@@ -137,3 +138,17 @@ class Screenshot(models.Model):
     """Anime screenshot model"""
     anime = models.ForeignKey('Anime', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='anime_screenshots/')
+
+
+class AnimeBookmarkList(models.Model):
+    """Bookmark model"""
+    class BookmarkValue(models.TextChoices):
+        watched = 'watched', _('Watched')
+        watching = 'watching', _('Watching')
+        planned = 'planned', _('Planned')
+        dropped = 'dropped', _('Dropped')
+        postponed = 'postponed', _('Postponed')
+        rewatching = 'rewatching', _('Re-watching')
+    list = models.CharField(max_length=50, choices=BookmarkValue.choices, default=BookmarkValue.choices[1])
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    anime = models.ManyToManyField(Anime)
