@@ -1,4 +1,6 @@
 import random
+from importlib._common import _
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.generics import RetrieveAPIView
@@ -17,7 +19,8 @@ from .serializers import (
     OriginSerializer,
     ScreenshotSerializer,
     AnimeRatingSerializer,
-    AnimeUserCommentSerializer
+    AnimeUserCommentSerializer,
+    AnimeReviewSerializer
 )
 from .models import (
     Anime,
@@ -30,7 +33,8 @@ from .models import (
     Origin,
     Screenshot,
     AnimeRating,
-    AnimeUserComment
+    AnimeUserComment,
+    AnimeReview
 )
 
 
@@ -105,3 +109,9 @@ class AnimeUserCommentViewSet(ModelViewSet):
     """Anime user comment model view set"""
     queryset = AnimeUserComment.objects.all()
     serializer_class = AnimeUserCommentSerializer
+
+
+class AnimeReviewViewSet(ModelViewSet):
+    """Anime review model view set"""
+    queryset = AnimeReview.objects.all()
+    serializer_class = AnimeReviewSerializer

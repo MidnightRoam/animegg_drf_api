@@ -154,6 +154,10 @@ class AnimeBookmarkList(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     anime = models.ManyToManyField(Anime)
 
+    class Meta:
+        verbose_name = 'Bookmark list'
+        verbose_name_plural = 'Bookmark lists'
+
 
 class AnimeRatingStar(models.Model):
     """Anime rating star model"""
@@ -192,3 +196,20 @@ class AnimeUserComment(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+
+class AnimeReview(models.Model):
+    """Anime user review"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None)
+    text = models.TextField()
+    rate = models.ForeignKey(AnimeRatingStar, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_created=True, null=True)
+
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'

@@ -12,7 +12,8 @@ from .models import (
     Origin,
     Screenshot,
     AnimeRating,
-    AnimeUserComment
+    AnimeUserComment,
+    AnimeReview
 )
 from characters.serializers import CharacterSerializer
 
@@ -132,7 +133,14 @@ class AnimeRatingSerializer(ModelSerializer):
 
 
 class AnimeUserCommentSerializer(ModelSerializer):
-    """Anime comment serializer"""
+    """Anime user comment serializer"""
     class Meta:
         model = AnimeUserComment
         fields = ('id', 'user', 'anime', 'text', 'reply')
+
+
+class AnimeReviewSerializer(ModelSerializer):
+    """Anime review serializer"""
+    class Meta:
+        model = AnimeReview
+        fields = ('id', 'user', 'anime', 'rate', 'text', 'created_at')

@@ -13,7 +13,8 @@ from .models import (
     AnimeBookmarkList,
     AnimeRatingStar,
     AnimeRating,
-    AnimeUserComment
+    AnimeUserComment,
+    AnimeReview
 )
 
 
@@ -77,4 +78,5 @@ admin.site.register(AgeValue)
 admin.site.register(AnimeRatingStar)
 admin.site.register(AnimeRating)
 admin.site.register(AnimeUserComment)
+admin.site.register(AnimeReview)
 admin.site.register(AnimeBookmarkList)
