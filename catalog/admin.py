@@ -12,7 +12,8 @@ from .models import (
     Screenshot,
     AnimeBookmarkList,
     AnimeRatingStar,
-    AnimeRating
+    AnimeRating,
+    AnimeUserComment
 )
 
 
@@ -75,4 +76,5 @@ class ScreenshotAdmin(admin.ModelAdmin):
 admin.site.register(AgeValue)
 admin.site.register(AnimeRatingStar)
 admin.site.register(AnimeRating)
+admin.site.register(AnimeUserComment)
 admin.site.register(AnimeBookmarkList)

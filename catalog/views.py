@@ -16,7 +16,8 @@ from .serializers import (
     MPAARatingSerializer,
     OriginSerializer,
     ScreenshotSerializer,
-    AnimeRatingSerializer
+    AnimeRatingSerializer,
+    AnimeUserCommentSerializer
 )
 from .models import (
     Anime,
@@ -28,7 +29,8 @@ from .models import (
     MPAARating,
     Origin,
     Screenshot,
-    AnimeRating
+    AnimeRating,
+    AnimeUserComment
 )
 
 
@@ -97,3 +99,9 @@ class AnimeRatingViewSet(ModelViewSet):
     """Anime rating model view set"""
     queryset = AnimeRating.objects.all()
     serializer_class = AnimeRatingSerializer
+
+
+class AnimeUserCommentViewSet(ModelViewSet):
+    """Anime user comment model view set"""
+    queryset = AnimeUserComment.objects.all()
+    serializer_class = AnimeUserCommentSerializer

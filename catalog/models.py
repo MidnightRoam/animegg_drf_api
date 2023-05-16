@@ -180,3 +180,15 @@ class AnimeRating(models.Model):
         if existing_reviews:
             raise Exception({"Error": "You have already left a review"})
         super().save(*args, **kwargs)
+
+
+class AnimeUserComment(models.Model):
+    """User comment for anime"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    reply = models.ManyToManyField('self')
+
+    def __str__(self):
+        return str(self.user)

@@ -11,7 +11,8 @@ from .views import (
     MPAARatingModelViewSet,
     OriginModelViewSet,
     ScreenshotViewSet,
-    AnimeRatingViewSet
+    AnimeRatingViewSet,
+    AnimeUserCommentViewSet
 )
 
 router = DefaultRouter()
@@ -25,6 +26,7 @@ router.register(r'statuses', StatusViewSet, basename='status')
 router.register(r'origins', OriginModelViewSet, basename='origin')
 router.register(r'screenshots', ScreenshotViewSet, basename='screenshot')
 router.register(r'anime-ratings', AnimeRatingViewSet, basename='anime-rating')
+router.register(r'anime-comments', AnimeUserCommentViewSet, basename='anime-user-comment')
 
 router.urls.append(path('random-anime/', AnimeViewSet.as_view({'get': 'get_random_anime'}), name='anime-random'))
 
