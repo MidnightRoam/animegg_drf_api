@@ -15,7 +15,8 @@ from .serializers import (
     StatusSerializer,
     MPAARatingSerializer,
     OriginSerializer,
-    ScreenshotSerializer
+    ScreenshotSerializer,
+    AnimeRatingSerializer
 )
 from .models import (
     Anime,
@@ -26,7 +27,8 @@ from .models import (
     Status,
     MPAARating,
     Origin,
-    Screenshot
+    Screenshot,
+    AnimeRating
 )
 
 
@@ -74,7 +76,7 @@ class TypeViewSet(ModelViewSet):
 
 
 class StatusViewSet(ModelViewSet):
-    """Status of anime view set"""
+    """Status of anime model view set"""
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
 
@@ -86,6 +88,12 @@ class OriginModelViewSet(ModelViewSet):
 
 
 class ScreenshotViewSet(ModelViewSet):
-    """Anime screenshot view set"""
+    """Anime screenshot model view set"""
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
+
+
+class AnimeRatingViewSet(ModelViewSet):
+    """Anime rating model view set"""
+    queryset = AnimeRating.objects.all()
+    serializer_class = AnimeRatingSerializer

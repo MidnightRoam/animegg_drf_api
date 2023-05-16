@@ -10,7 +10,8 @@ from .models import (
     AgeValue,
     MPAARating,
     Origin,
-    Screenshot
+    Screenshot,
+    AnimeRating
 )
 from characters.serializers import CharacterSerializer
 
@@ -120,3 +121,10 @@ class OriginSerializer(ModelSerializer):
     class Meta:
         model = Origin
         fields = ('id', 'title', 'slug', )
+
+
+class AnimeRatingSerializer(ModelSerializer):
+    """Anime rating serializer"""
+    class Meta:
+        model = AnimeRating
+        fields = ('id', 'user', 'anime', 'value')

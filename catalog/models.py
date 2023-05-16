@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from characters.models import Character
 from .model_helpers import slug_generator
@@ -152,3 +153,30 @@ class AnimeBookmarkList(models.Model):
     list = models.CharField(max_length=50, choices=BookmarkValue.choices, default=BookmarkValue.choices[1])
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     anime = models.ManyToManyField(Anime)
+
+
+class AnimeRatingStar(models.Model):
+    """Anime rating star model"""
+    value = models.PositiveSmallIntegerField(
+        unique=True,
+        validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1)
+        ]
+    )
+
+    def __str__(self):
+        return str(self.value)
+
+
+class AnimeRating(models.Model):
+    """Anime user rating model"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
+    value = models.ForeignKey(AnimeRatingStar, on_delete=models.CASCADE, default=None)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None)
+
+    def save(self, *args, **kwargs):
+        existing_reviews = AnimeRating.objects.filter(user=self.user, anime=self.anime)
+        if existing_reviews:
+            raise Exception({"Error": "You have already left a review"})
+        super().save(*args, **kwargs)
