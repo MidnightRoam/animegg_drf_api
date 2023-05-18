@@ -1,3 +1,4 @@
+from django.db.models import Avg, Prefetch
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
@@ -31,6 +32,7 @@ class AnimeSerializer(ModelSerializer):
     genres = serializers.SerializerMethodField()
     age_restrictions = serializers.SerializerMethodField()
     screenshot_set = ScreenshotSerializer(many=True, required=False)
+    rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Anime
@@ -49,6 +51,7 @@ class AnimeSerializer(ModelSerializer):
             'type',
             'status',
             'screenshot_set',
+            'rating',
         )
 
     def get_main_characters(self, obj):
@@ -74,6 +77,13 @@ class AnimeSerializer(ModelSerializer):
         screenshot_set = obj.screenshots
         serializer = ScreenshotSerializer(screenshot_set, many=True)
         return serializer.data
+
+    def get_rating(self, obj) -> float or None:
+        """Returns average rating for anime as a float field"""
+        ratings = Anime.objects.annotate(avg_rating=Avg('anime_ratings__value')).filter(id=obj.id).first()
+        if ratings is not None:
+            return ratings.avg_rating
+        return None
 
 
 class GenreSerializer(ModelSerializer):

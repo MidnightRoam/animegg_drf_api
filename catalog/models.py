@@ -177,7 +177,7 @@ class AnimeRating(models.Model):
     """Anime user rating model"""
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     value = models.ForeignKey(AnimeRatingStar, on_delete=models.CASCADE, default=None)
-    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None)
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None, related_name='anime_ratings')
 
     def save(self, *args, **kwargs):
         existing_reviews = AnimeRating.objects.filter(user=self.user, anime=self.anime)
