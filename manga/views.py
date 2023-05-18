@@ -1,4 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from .models import (
     Manga,
@@ -18,6 +20,10 @@ class MangaModelViewSet(ModelViewSet):
     """Manga model view set"""
     queryset = Manga.objects.all()
     serializer_class = MangaSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['genres', 'type', ]
+    search_fields = ['title', 'subtitle', ]
+    ordering_fields = ['created_at', 'released', 'title']
 
 
 class TypeModelViewSet(ModelViewSet):

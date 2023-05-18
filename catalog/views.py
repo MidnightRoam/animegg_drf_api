@@ -1,4 +1,6 @@
 import random
+
+from django.db.models import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
@@ -46,11 +48,16 @@ class AnimeViewSet(ModelViewSet):
     search_fields = ['title', 'subtitle', ]
     ordering_fields = ['release_date', 'created_at', 'title']
 
-    def get_random_anime(self, request):
+    def get_random_anime(self, request) -> Response:
         """Return random anime object"""
         random_anime = random.choice(self.queryset)
         serializer = AnimeSerializer(random_anime)
         return Response(serializer.data)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.prefetch_related('related_anime')
+        return queryset
 
 
 class GenreViewSet(ModelViewSet):

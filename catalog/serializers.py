@@ -53,6 +53,7 @@ class AnimeSerializer(ModelSerializer):
             'status',
             'screenshot_set',
             'rating',
+            'related_anime',
         )
 
     def get_main_characters(self, obj):

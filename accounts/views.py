@@ -1,9 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import CreateAPIView
 from django.contrib.auth import get_user_model
 from .serializers import UserSerializer
 
@@ -32,7 +30,7 @@ class UserModelViewSet(ModelViewSet):
             return Response({'message': 'You must be logged into to add a new friend'})
 
     @action(detail=True, methods=['post'])
-    def delete_friend(self, request, pk=None):
+    def delete_friend(self, request, pk=None) -> Response:
         """Remove a friend from current logged user list"""
         if request.user.is_authenticated:
             try:

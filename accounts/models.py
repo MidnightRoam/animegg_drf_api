@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
+from catalog.model_helpers import slug_generator
+
 
 class CustomUser(AbstractUser):
     """Custom user model"""
@@ -21,3 +23,9 @@ class CustomUser(AbstractUser):
     about = models.TextField(blank=True)
     image = models.ImageField(blank=True, null=True, upload_to='accounts/user_images')
     friends = models.ManyToManyField('self', symmetrical=True, blank=True)
+    slug = models.SlugField(default=None, null=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slug_generator(self.username)
+        super().save(*args, **kwargs)

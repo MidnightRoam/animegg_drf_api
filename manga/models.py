@@ -17,6 +17,7 @@ class Manga(models.Model):
     slug = models.SlugField(editable=False, default='')
     genres = models.ManyToManyField('Genre', blank=True, related_name='genres')
     characters = models.ManyToManyField(Character, blank=True, related_name='characters')
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return self.title

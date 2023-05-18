@@ -12,7 +12,7 @@ from .views import (
 
 
 router = DefaultRouter()
-router.register('users', UserModelViewSet, basename='registration')
+router.register('users', UserModelViewSet, basename='user')
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

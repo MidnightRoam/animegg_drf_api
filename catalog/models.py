@@ -23,6 +23,7 @@ class Anime(models.Model):
     type = models.ForeignKey('Type', on_delete=models.CASCADE, null=True)
     origin = models.ForeignKey('Origin', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    related_anime = models.ManyToManyField('self', blank=True, symmetrical=True)
 
     def __str__(self):
         return self.title
