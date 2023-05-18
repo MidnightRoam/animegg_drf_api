@@ -48,6 +48,7 @@ class AnimeSerializer(ModelSerializer):
             'origin',
             'slug',
             'age_restrictions',
+            'mpaa_rating',
             'type',
             'status',
             'screenshot_set',

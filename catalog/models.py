@@ -22,6 +22,7 @@ class Anime(models.Model):
     status = models.ForeignKey('Status', on_delete=models.CASCADE, null=True, blank=True)
     type = models.ForeignKey('Type', on_delete=models.CASCADE, null=True)
     origin = models.ForeignKey('Origin', on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.title

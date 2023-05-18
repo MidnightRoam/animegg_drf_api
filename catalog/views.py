@@ -1,9 +1,8 @@
 import random
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.generics import RetrieveAPIView
-from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
@@ -42,6 +41,10 @@ class AnimeViewSet(ModelViewSet):
     queryset = Anime.objects.all().prefetch_related('screenshot_set')
     serializer_class = AnimeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['status', 'type', 'genres', 'mpaa_rating']
+    search_fields = ['title', 'subtitle', ]
+    ordering_fields = ['release_date', 'created_at', 'title']
 
     def get_random_anime(self, request):
         """Return random anime object"""
