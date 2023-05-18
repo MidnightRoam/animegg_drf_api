@@ -19,3 +19,5 @@ class CustomUser(AbstractUser):
     sex = models.CharField(choices=UserSexChoice.choices, default=UserSexChoice.choices[0], max_length=15)
     status = models.CharField(max_length=255, blank=True)
     about = models.TextField(blank=True)
+    image = models.ImageField(blank=True, null=True, upload_to='accounts/user_images')
+    friends = models.ManyToManyField('self', symmetrical=True, blank=True)

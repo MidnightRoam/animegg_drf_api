@@ -12,12 +12,14 @@ from .views import (
 
 
 router = DefaultRouter()
-router.register('signup', UserModelViewSet, basename='registration')
+router.register('users', UserModelViewSet, basename='registration')
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('users/<int:pk>/add_friend/', UserModelViewSet.as_view({'post': 'add_friend'}), name='add_friend'),
+    path('users/<int:pk>/remove_friend/', UserModelViewSet.as_view({'post': 'delete_friend'}), name='remove_friend'),
 ]
 
 urlpatterns += router.urls
