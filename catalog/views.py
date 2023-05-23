@@ -1,12 +1,9 @@
 import random
-
-from django.db.models import QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-
 
 from .serializers import (
     AnimeSerializer,
@@ -52,6 +49,23 @@ class AnimeViewSet(ModelViewSet):
         """Return random anime object"""
         random_anime = random.choice(self.queryset)
         serializer = AnimeSerializer(random_anime)
+        return Response(serializer.data)
+
+    def list(self, request):
+        """Return a list of anime objects"""
+        queryset = Anime.objects.prefetch_related(
+            'screenshot_set',
+            'related_anime',
+            'main_characters',
+            'genres'
+        ).all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        """Return a selected anime object"""
+        queryset = Anime.objects.get(pk=pk)
+        serializer = self.serializer_class(queryset)
         return Response(serializer.data)
 
     def get_queryset(self):
@@ -118,6 +132,12 @@ class AnimeUserCommentViewSet(ModelViewSet):
     """Anime user comment model view set"""
     queryset = AnimeUserComment.objects.all()
     serializer_class = AnimeUserCommentSerializer
+
+    def list(self, request):
+        """Returns a list of all user comments"""
+        queryset = AnimeUserComment.objects.prefetch_related('reply').all()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
 
 class AnimeReviewViewSet(ModelViewSet):

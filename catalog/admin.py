@@ -16,6 +16,12 @@ from .models import (
     AnimeUserComment,
     AnimeReview
 )
+from video_player.models import Episode
+
+
+class EpisodeInLine(admin.TabularInline):
+    """Anime episode tabular in line"""
+    model = Episode
 
 
 class ScreenshotInLine(admin.TabularInline):
@@ -29,6 +35,7 @@ class AnimeAdmin(admin.ModelAdmin):
     list_display = ('title', 'release_date', 'slug',)
     inlines = [
         ScreenshotInLine,
+        EpisodeInLine
     ]
 
 

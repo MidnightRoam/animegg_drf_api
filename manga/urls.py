@@ -9,9 +9,9 @@ from .views import (
 
 router = DefaultRouter()
 router.register('all', MangaModelViewSet, basename='manga')
-router.register('types', TypeModelViewSet, basename='type')
-router.register('statuses', StatusModelViewSet, basename='status')
-router.register('genres', GenreModelViewSet, basename='genre')
+router.register('types', TypeModelViewSet, basename='manga-type')
+router.register('statuses', StatusModelViewSet, basename='manga-status')
+router.register('genres', GenreModelViewSet, basename='manga-genre')
 
 urlpatterns = [
 

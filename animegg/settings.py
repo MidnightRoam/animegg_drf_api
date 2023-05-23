@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    "debug_toolbar",
+    'debug_toolbar',
     'django_filters',
     
     'catalog.apps.CatalogConfig',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'manga.apps.MangaConfig',
     'authors.apps.AuthorsConfig',
     'accounts.apps.AccountsConfig',
+    'video_player.apps.VideoPlayerConfig',
 ]
 
 MIDDLEWARE = [
@@ -163,6 +164,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Redis setup
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
+
+# Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

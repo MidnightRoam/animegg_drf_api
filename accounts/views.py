@@ -13,6 +13,12 @@ class UserModelViewSet(ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
+    def list(self, request):
+        """Returns a list of all users"""
+        queryset = self.queryset.prefetch_related('friends')
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'])
     def add_friend(self, request, pk=None) -> Response:
         """Add a friend to current logged user"""

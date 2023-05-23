@@ -17,6 +17,7 @@ from .models import (
     AnimeReview
 )
 from characters.serializers import CharacterSerializer
+from video_player.serializers import EpisodeSerializer
 
 
 class ScreenshotSerializer(ModelSerializer):
@@ -32,6 +33,7 @@ class AnimeSerializer(ModelSerializer):
     genres = serializers.SerializerMethodField()
     age_restrictions = serializers.SerializerMethodField()
     screenshot_set = ScreenshotSerializer(many=True, required=False)
+    episode_set = EpisodeSerializer(many=True, required=False)
     rating = serializers.SerializerMethodField()
 
     class Meta:
@@ -54,6 +56,7 @@ class AnimeSerializer(ModelSerializer):
             'screenshot_set',
             'rating',
             'related_anime',
+            'episode_set',
         )
 
     def get_main_characters(self, obj):
@@ -86,6 +89,12 @@ class AnimeSerializer(ModelSerializer):
         if ratings is not None:
             return ratings.avg_rating
         return None
+
+    def get_episode_set(self, obj):
+        """ORM query optimization for anime episodes"""
+        episode_set = obj.episode
+        serializer = EpisodeSerializer(episode_set, many=True)
+        return serializer.data
 
 
 class GenreSerializer(ModelSerializer):
