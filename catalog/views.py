@@ -17,7 +17,8 @@ from .serializers import (
     ScreenshotSerializer,
     AnimeRatingSerializer,
     AnimeUserCommentSerializer,
-    AnimeReviewSerializer
+    AnimeReviewSerializer,
+    AnimeBookmarkListSerializer
 )
 from .models import (
     Anime,
@@ -31,7 +32,8 @@ from .models import (
     Screenshot,
     AnimeRating,
     AnimeUserComment,
-    AnimeReview
+    AnimeReview,
+    AnimeBookmarkList
 )
 
 
@@ -135,7 +137,7 @@ class AnimeUserCommentViewSet(ModelViewSet):
 
     def list(self, request):
         """Returns a list of all user comments"""
-        queryset = AnimeUserComment.objects.prefetch_related('reply').all()
+        queryset = self.queryset.prefetch_related('reply').all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
@@ -144,3 +146,15 @@ class AnimeReviewViewSet(ModelViewSet):
     """Anime review model view set"""
     queryset = AnimeReview.objects.all()
     serializer_class = AnimeReviewSerializer
+
+
+class AnimeBookmarkListViewSet(ModelViewSet):
+    """User bookmark list of anime model view set"""
+    queryset = AnimeBookmarkList.objects.all()
+    serializer_class = AnimeBookmarkListSerializer
+
+    def list(self, request):
+        """Returns a list of all anime bookmark list objects"""
+        queryset = self.queryset.prefetch_related('anime')
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)

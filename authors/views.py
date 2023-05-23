@@ -12,6 +12,6 @@ class AuthorModelViewSet(ModelViewSet):
 
     def list(self):
         """Returns list of all author objects"""
-        queryset = Author.objects.prefetch_related('anime', 'manga').all()
+        queryset = self.queryset.prefetch_related('anime', 'manga').all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)

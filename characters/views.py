@@ -22,6 +22,7 @@ class CharacterModelViewSet(ModelViewSet):
     search_fields = ['name', 'subname']
 
     def list(self, request):
-        queryset = Character.objects.prefetch_related('anime').all()
+        """Returns a list of all character objects"""
+        queryset = self.queryset.prefetch_related('anime').all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)

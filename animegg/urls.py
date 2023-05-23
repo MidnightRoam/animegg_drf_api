@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/v1/manga/', include('manga.urls')),
     path('api/v1/authors/', include('authors.urls')),
     path('api/v1/accounts/', include('accounts.urls')),
+    path('api/v1/video/', include('video_player.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]

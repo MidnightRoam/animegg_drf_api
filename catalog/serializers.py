@@ -14,7 +14,8 @@ from .models import (
     Screenshot,
     AnimeRating,
     AnimeUserComment,
-    AnimeReview
+    AnimeReview,
+    AnimeBookmarkList
 )
 from characters.serializers import CharacterSerializer
 from video_player.serializers import EpisodeSerializer
@@ -165,3 +166,10 @@ class AnimeReviewSerializer(ModelSerializer):
     class Meta:
         model = AnimeReview
         fields = ('id', 'user', 'anime', 'rate', 'text', 'created_at')
+
+
+class AnimeBookmarkListSerializer(ModelSerializer):
+    """User bookmark list of anime serializer"""
+    class Meta:
+        model = AnimeBookmarkList
+        fields = ('id', 'list', 'user', 'anime', )

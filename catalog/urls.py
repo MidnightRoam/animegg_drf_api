@@ -13,7 +13,8 @@ from .views import (
     ScreenshotViewSet,
     AnimeRatingViewSet,
     AnimeUserCommentViewSet,
-    AnimeReviewViewSet
+    AnimeReviewViewSet,
+    AnimeBookmarkListViewSet
 )
 
 router = DefaultRouter()
@@ -29,6 +30,7 @@ router.register(r'screenshots', ScreenshotViewSet, basename='screenshot')
 router.register(r'ratings', AnimeRatingViewSet, basename='anime-rating')
 router.register(r'comments', AnimeUserCommentViewSet, basename='anime-user-comment')
 router.register(r'reviews', AnimeReviewViewSet, basename='anime-review')
+router.register(r'bookmarks', AnimeBookmarkListViewSet, basename='anime-bookmark-list')
 
 router.urls.append(path('random-anime/', AnimeViewSet.as_view({'get': 'get_random_anime'}), name='anime-random'))
 
