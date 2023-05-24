@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import related
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -355,6 +356,11 @@ class AnimeUserComment(models.Model):
                               editable=False,
                               blank=True,
                               null=True,)
+    dislikes = models.ForeignKey('CommentDislike',
+                              on_delete=models.CASCADE,
+                              editable=False,
+                              blank=True,
+                              null=True,)
 
     def __str__(self):
         """
@@ -398,4 +404,16 @@ class CommentLike(models.Model):
         user (CustomUser): User which liked comment.
     """
     comment = models.ForeignKey(AnimeUserComment, on_delete=models.CASCADE, related_name='comment_likes')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+
+class CommentDislike(models.Model):
+    """
+    Dislike object for user comment.
+
+    Attributes:
+        comment (ForeignKey[AnimeUserComment]): Comment object.
+        user (CustomUser): User which disliked comment.
+    """
+    comment = models.ForeignKey(AnimeUserComment, on_delete=models.CASCADE, related_name='comment_dislikes')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

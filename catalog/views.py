@@ -19,7 +19,8 @@ from .serializers import (
     AnimeUserCommentSerializer,
     AnimeReviewSerializer,
     AnimeBookmarkListSerializer,
-    CommentLikeSerializer
+    CommentLikeSerializer,
+    CommentDislikeSerializer,
 )
 from .models import (
     Anime,
@@ -35,7 +36,8 @@ from .models import (
     AnimeUserComment,
     AnimeReview,
     AnimeBookmarkList,
-    CommentLike
+    CommentLike,
+    CommentDislike,
 )
 
 
@@ -239,7 +241,7 @@ class AnimeUserCommentViewSet(ModelViewSet):
         Returns:
             Response: The serialized data of the list of user comments.
         """
-        queryset = self.queryset.prefetch_related('reply').all()
+        queryset = self.queryset.prefetch_related('reply').select_related('likes', 'dislikes').all()
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
@@ -284,8 +286,20 @@ class CommentLikeViewSet(ModelViewSet):
     View set for managing comment likes objects.
 
     Attributes:
-        queryset (QuerySet): The queryset of all CommentLike.objects.all()
+        queryset (QuerySet): The queryset of all comment likes.
         serializer_class (Serializer): The serializer class used for serializing/deserializing comment likes.
     """
     queryset = CommentLike.objects.all()
     serializer_class = CommentLikeSerializer
+
+
+class CommentDislikeViewSet(ModelViewSet):
+    """
+    View set for managing comment dislikes objects.
+
+    Attributes:
+        queryset (QuerySet): The queryset of all comment dislikes.
+        serializer_class (Serializer): The serializer class used for serializing/deserializing comment dislikes.
+    """
+    queryset = CommentDislike.objects.all()
+    serializer_class = CommentDislikeSerializer

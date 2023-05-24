@@ -16,7 +16,8 @@ from .models import (
     AnimeUserComment,
     AnimeReview,
     AnimeBookmarkList,
-    CommentLike
+    CommentLike,
+    CommentDislike
 )
 from characters.serializers import CharacterSerializer
 from video_player.serializers import EpisodeSerializer
@@ -270,6 +271,31 @@ class CommentLikeSerializer(ModelSerializer):
         return like
 
 
+class CommentDislikeSerializer(ModelSerializer):
+    """
+    Serializer for user comment dislike
+
+    Fields:
+        - id: The unique identifier for the comment dislike.
+        - comment: The comment that was disliked.
+        - user: The user who disliked the comment.
+    """
+    class Meta:
+        model = CommentDislike
+        fields = ('id', 'comment', 'user')
+
+    def create(self, validated_data):
+        user = validated_data['user']
+        comment = validated_data['comment']
+
+        try:
+            dislike = CommentDislike.objects.get(user=user, comment=comment)
+            dislike.delete()
+        except CommentDislike.DoesNotExist:
+            dislike = CommentDislike.objects.create(user=user, comment=comment)
+        return dislike
+
+
 class AnimeUserCommentSerializer(ModelSerializer):
     """
     Serializer for anime user comments.
@@ -283,14 +309,19 @@ class AnimeUserCommentSerializer(ModelSerializer):
         - likes: The comment likes.
     """
     likes = serializers.SerializerMethodField()
+    dislikes = serializers.SerializerMethodField()
 
     class Meta:
         model = AnimeUserComment
-        fields = ('id', 'user', 'anime', 'text', 'reply', 'likes')
+        fields = ('id', 'user', 'anime', 'text', 'reply', 'likes', 'dislikes')
 
     def get_likes(self, obj) -> int:
         """Return a int of comment likes"""
         return obj.comment_likes.count()
+
+    def get_dislikes(self, obj) -> int:
+        """Return a int of comment dislikes"""
+        return obj.comment_dislikes.count()
 
 
 class AnimeReviewSerializer(ModelSerializer):
