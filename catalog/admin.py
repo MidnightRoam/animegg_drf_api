@@ -14,7 +14,8 @@ from .models import (
     AnimeRatingStar,
     AnimeRating,
     AnimeUserComment,
-    AnimeReview
+    AnimeReview,
+    CommentLike
 )
 from video_player.models import Episode
 
@@ -87,3 +88,4 @@ admin.site.register(AnimeRating)
 admin.site.register(AnimeUserComment)
 admin.site.register(AnimeReview)
 admin.site.register(AnimeBookmarkList)
+admin.site.register(CommentLike)

@@ -1,4 +1,6 @@
 import random
+
+from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
@@ -18,7 +20,7 @@ from .serializers import (
     AnimeRatingSerializer,
     AnimeUserCommentSerializer,
     AnimeReviewSerializer,
-    AnimeBookmarkListSerializer
+    AnimeBookmarkListSerializer, CommentLikeSerializer
 )
 from .models import (
     Anime,
@@ -33,7 +35,7 @@ from .models import (
     AnimeRating,
     AnimeUserComment,
     AnimeReview,
-    AnimeBookmarkList
+    AnimeBookmarkList, CommentLike
 )
 
 
@@ -158,3 +160,8 @@ class AnimeBookmarkListViewSet(ModelViewSet):
         queryset = self.queryset.prefetch_related('anime')
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
+
+
+class CommentLikeViewSet(ModelViewSet):
+    queryset = CommentLike.objects.all()
+    serializer_class = CommentLikeSerializer
