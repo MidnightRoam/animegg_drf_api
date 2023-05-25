@@ -29,3 +29,17 @@ class CustomUser(AbstractUser):
         if not self.slug:
             self.slug = slug_generator(self.username)
         super().save(*args, **kwargs)
+
+
+class FriendshipRequest(models.Model):
+    """
+    Friendship user request.
+
+    Attributes:
+        from_user (ForeignKey[Customuser]): The user who wants to add in friend list.
+        to_user (ForeignKey[Customuser]): The user who received the request.
+        created_at (DateTimeField): The created date of the request.
+    """
+    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='friendship_requests_sent')
+    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='friendship_requests_received')
+    created_at = models.DateTimeField(auto_now_add=True)
