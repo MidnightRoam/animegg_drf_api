@@ -40,6 +40,8 @@ from .models import (
     CommentDislike,
 )
 
+from catalog.permissions import IsStaffOrReadOnly
+
 
 class AnimeViewSet(ModelViewSet):
     """
@@ -56,7 +58,7 @@ class AnimeViewSet(ModelViewSet):
     """
     queryset = Anime.objects.all().prefetch_related('screenshot_set')
     serializer_class = AnimeSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsStaffOrReadOnly, )
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['status', 'type', 'genres', 'mpaa_rating']
     search_fields = ['title', 'subtitle', ]
@@ -122,9 +124,11 @@ class GenreViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all genres.
         serializer_class (Serializer): The serializer class used for serializing/deserializing genres data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class AgeValueViewSet(ModelViewSet):
@@ -134,9 +138,11 @@ class AgeValueViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all age value objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing age value data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AgeValue.objects.all()
     serializer_class = AgeValueSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class AgeRestrictionViewSet(ModelViewSet):
@@ -146,9 +152,11 @@ class AgeRestrictionViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all age restriction objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing age restriction data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AgeRestriction.objects.all()
     serializer_class = AgeRestrictionSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class MPAARatingModelViewSet(ModelViewSet):
@@ -158,9 +166,11 @@ class MPAARatingModelViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all MPAA rating objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing MPAA rating data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = MPAARating.objects.all()
     serializer_class = MPAARatingSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class TypeViewSet(ModelViewSet):
@@ -170,9 +180,11 @@ class TypeViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime type objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing anime type data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class StatusViewSet(ModelViewSet):
@@ -182,9 +194,11 @@ class StatusViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime status objects.
         serializing_class (Serializer): The serializer class used for serializing/deserializing anime status data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class OriginModelViewSet(ModelViewSet):
@@ -194,9 +208,11 @@ class OriginModelViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime origin objects.
         serializing_class (Serializer): The serializer class used for serializing/deserializing anime origin data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = Origin.objects.all()
     serializer_class = OriginSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class ScreenshotViewSet(ModelViewSet):
@@ -206,9 +222,11 @@ class ScreenshotViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime screenshots (frames) objects.
         serializing_class (Serializer): The serializer class used for serializing/deserializing anime screenshots data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class AnimeRatingViewSet(ModelViewSet):
@@ -218,9 +236,11 @@ class AnimeRatingViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime rating objects.
         serializing_class (Serializer): The serializer class used for serializing/deserializing anime rating data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AnimeRating.objects.all()
     serializer_class = AnimeRatingSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class AnimeUserCommentViewSet(ModelViewSet):
@@ -230,9 +250,11 @@ class AnimeUserCommentViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime user comments objects.
         serializing_class (Serializer): The serializer class used for serializing/deserializing anime user comments.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AnimeUserComment.objects.all()
     serializer_class = AnimeUserCommentSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def list(self, request):
         """
@@ -253,9 +275,11 @@ class AnimeReviewViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime review objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing anime reviews.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AnimeReview.objects.all()
     serializer_class = AnimeReviewSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class AnimeBookmarkListViewSet(ModelViewSet):
@@ -265,9 +289,11 @@ class AnimeBookmarkListViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all anime bookmark list objects.
         serializer_class (Serializer): The serializer class used for serializing/deserializing anime bookmarks.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = AnimeBookmarkList.objects.all()
     serializer_class = AnimeBookmarkListSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def list(self, request):
         """
@@ -288,9 +314,11 @@ class CommentLikeViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all comment likes.
         serializer_class (Serializer): The serializer class used for serializing/deserializing comment likes.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = CommentLike.objects.all()
     serializer_class = CommentLikeSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class CommentDislikeViewSet(ModelViewSet):
@@ -300,6 +328,8 @@ class CommentDislikeViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all comment dislikes.
         serializer_class (Serializer): The serializer class used for serializing/deserializing comment dislikes.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = CommentDislike.objects.all()
     serializer_class = CommentDislikeSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)

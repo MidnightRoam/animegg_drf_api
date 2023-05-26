@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth import get_user_model
 from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import CustomUser, FriendshipRequest
 
@@ -15,9 +16,11 @@ class UserModelViewSet(ModelViewSet):
     Attributes:
         queryset (QuerySet): The queryset of all user objects.
         serializer_class (Serializer): The serializer class used for serialization/deserialization users data.
+        permission_classes (tuple): The permission classes applied to the view set.
     """
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+    permissions = (IsAuthenticatedOrReadOnly, )
 
     def list(self, request):
         """

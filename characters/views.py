@@ -12,11 +12,14 @@ from .serializers import (
     CharacterSerializer
 )
 
+from characters.permissions import IsStaffOrReadOnly
+
 
 class CharacterModelViewSet(ModelViewSet):
     """Character model view set"""
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
+    permission_classes = (IsStaffOrReadOnly, )
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['anime', ]
     search_fields = ['name', 'subname']
