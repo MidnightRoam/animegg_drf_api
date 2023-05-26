@@ -4,5 +4,4 @@
 ### Getting started:
 
 ### Documentation:
-At the moment, work is underway to write the specification for the "AnimeGG" project. 
-The specification itself can be viewed at the link: https://app.swaggerhub.com/apis/SALDATSENKA/AnimeGG/0.1
+AnimeGG has auto-generated documentation that you can view on your local server by going to the following path: localhost:8000/swagger/
