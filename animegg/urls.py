@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .yasg import urlpatterns as doc_urls
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -33,3 +34,5 @@ urlpatterns = [
     path('api/v1/video/', include('video_player.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+urlpatterns += doc_urls

@@ -56,6 +56,7 @@ class TypeSerializer(ModelSerializer):
     class Meta:
         model = Type
         fields = ('id', 'title', 'slug', )
+        ref_name = 'manga_type'
 
 
 class StatusSerializer(ModelSerializer):
@@ -63,6 +64,7 @@ class StatusSerializer(ModelSerializer):
     class Meta:
         model = Status
         fields = ('id', 'title', 'slug', )
+        ref_name = 'manga_status'
 
 
 class GenreSerializer(ModelSerializer):
@@ -70,3 +72,4 @@ class GenreSerializer(ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'title', 'description', 'slug', )
+        ref_name = 'manga_genre'
