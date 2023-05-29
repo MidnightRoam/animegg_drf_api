@@ -28,6 +28,7 @@ class Anime(models.Model):
         origin (ForeignKey[Origin]): Origin (original, novel, manga) of the anime.
         created_at (DateTimeField): Date of publish (creation) of the anime object.
         related_anime (ManyToManyField[self]): Related anime objects.
+        is_published (bool): Boolean indicating whether anime object is published.
     """
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
@@ -44,6 +45,7 @@ class Anime(models.Model):
     origin = models.ForeignKey('Origin', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     related_anime = models.ManyToManyField('self', blank=True, symmetrical=True)
+    is_published = models.BooleanField(default=False)
 
     def __str__(self):
         """

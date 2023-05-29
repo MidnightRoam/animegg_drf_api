@@ -77,7 +77,7 @@ class AnimeViewSet(ModelViewSet):
 
     def list(self, request):
         """
-        Return a list of anime objects.
+        Return a list of published anime objects.
 
         Returns:
             Response: The serialized data of the list of anime objects.
@@ -87,7 +87,7 @@ class AnimeViewSet(ModelViewSet):
             'related_anime',
             'main_characters',
             'genres'
-        ).all()
+        ).filter(is_published=True)
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
