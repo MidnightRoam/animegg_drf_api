@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
     birthday_date = models.DateField(blank=True, null=True)
-    sex = models.CharField(choices=UserSexChoice.choices, default=UserSexChoice.choices[0], max_length=15)
+    sex = models.CharField(choices=UserSexChoice.choices, max_length=15, default=UserSexChoice.not_specified)
     status = models.CharField(max_length=255, blank=True)
     about = models.TextField(blank=True)
     image = models.ImageField(blank=True, null=True, upload_to='accounts/user_images')
