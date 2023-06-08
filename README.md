@@ -1,6 +1,11 @@
 
 ### DRF API for anime portal project with video player
 
+### Programming languages / tools used in development:
+<ul>
+    <li>Python</li>
+</ul>
+
 ### Getting started:
 #### Using Docker:
 #### 1. Select a hard drive location where the project will be located
