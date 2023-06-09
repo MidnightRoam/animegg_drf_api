@@ -4,6 +4,7 @@
 ### Programming languages / tools used in development:
 <ul>
     <li>Python</li>
+    <li>Django</li>
 </ul>
 
 ### Getting started:
