@@ -4,7 +4,9 @@
 ### Programming languages / tools used in development:
 <ul>
     <li>Python</li>
-    <li>Django</li>
+    <li>Django REST framework</li>
+    <li>MySQL</li>
+    <li>Docker</li>
 </ul>
 
 ### Getting started:
