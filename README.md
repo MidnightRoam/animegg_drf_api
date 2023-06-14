@@ -10,7 +10,7 @@
 </ul>
 
 ### Getting started:
-#### Using Docker:
+#### Using Docker (Preferred and easier application deployment option):
 #### 1. Select a hard drive location where the project will be located
 
 #### 2. Paste this command into the terminal
