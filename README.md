@@ -1,5 +1,6 @@
 
 ### DRF API for anime portal project with video player
+(The project is educational and is not a plagiarism of the "AnimeGO" project)
 
 ### Programming languages / tools used in development:
 <ul>
